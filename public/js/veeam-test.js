@@ -6,10 +6,7 @@
  * @license   GPL v2
  */
 
-
 $(function(){
-
-    console.log('2');
 
     $(".job-list .list-group-item").click(function(){
         $(this).find(".job-description").toggle();

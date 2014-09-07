@@ -111,4 +111,19 @@ return array(
             ),
         ),
     ),
+    'doctrine' => array(
+        'driver' => array(
+            'veeam_test_entities' => array(
+                'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/VeeamTest/Entity')
+            ),
+
+            'orm_default' => array(
+                'drivers' => array(
+                    'VeeamTest\Entity' => 'veeam_test_entities'
+                )
+            )
+        )
+    )
 );

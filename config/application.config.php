@@ -2,6 +2,8 @@
 return array(
     // This should be an array of module namespaces used in the veeam-test.
     'modules' => array(
+        'DoctrineModule',
+        'DoctrineORMModule',
         'VeeamTest',
     ),
 

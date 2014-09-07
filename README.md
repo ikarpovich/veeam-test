@@ -25,3 +25,27 @@ and use `composer` to install dependencies:
 
 (The `self-update` directive is to ensure you have an up-to-date `composer.phar`
 available.)
+
+### Web Server ####
+
+Do not forget to add public directory as the webserver root
+
+### Database ###
+
+Database dump is in dump.sql file. You need to import it to your MySQL server.
+Then add config/autoload/doctrine.local.php with the following code.
+Change database credentials as you need.
+
+    return array(
+        'doctrine' => array(
+            'connection' => array(
+                'orm_default' => array(
+                    'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                    'params' => array(
+                        'host' => 'localhost',
+                        'port' => '3306',
+                        'user' => 'username',
+                        'password' => 'password',
+                        'dbname' => 'database',
+                    )))));
+
