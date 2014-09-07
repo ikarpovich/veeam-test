@@ -19,7 +19,7 @@ and use `composer` to install dependencies:
 
     cd my/project/dir
     git clone git://http://github.com/ikarpovich/veeam-test.git
-    cd veaam-test
+    cd veeam-test
     php composer.phar self-update
     php composer.phar install
 
