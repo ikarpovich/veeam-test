@@ -26,7 +26,7 @@ return array(
                     'route'    => '/veeam-test',
                     'defaults' => array(
                         '__NAMESPACE__' => 'VeeamTest\Controller',
-                        'controller'    => 'Index',
+                        'controller'    => 'Jobs',
                         'action'        => 'index',
                     ),
                 ),
@@ -56,6 +56,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'veeam-test-navigation' => 'VeeamTest\Navigation\Service\VeeamTestNavigationFactory'
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -69,7 +72,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'VeeamTest\Controller\Index' => 'VeeamTest\Controller\IndexController'
+            'VeeamTest\Controller\Index' => 'VeeamTest\Controller\IndexController',
+            'VeeamTest\Controller\Jobs' => 'VeeamTest\Controller\JobsController'
         ),
     ),
     'view_manager' => array(
@@ -92,6 +96,18 @@ return array(
     'console' => array(
         'router' => array(
             'routes' => array(
+            ),
+        ),
+    ),
+    'navigation' => array(
+        'veeam-test' => array(
+            'home' => array(
+                'label' => 'Home',
+                'route' => 'home'
+            ),
+            'job-list' => array(
+                'label' => 'Job List',
+                'route' => 'veeam-test'
             ),
         ),
     ),

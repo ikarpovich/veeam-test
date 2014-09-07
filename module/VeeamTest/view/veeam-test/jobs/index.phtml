@@ -1,0 +1,41 @@
+<h1>Find jobs</h1>
+
+
+<form class="form-inline" role="form">
+    <div class="form-group">
+        <label class="sr-only" for="departmentInput">Department</label>
+        <select name="department" class="form-control" id="departmentInput">
+            <option value=""><?php echo $this->translate('(Select department)');?></option>
+            <option value="1">Department 1</option>
+            <option value="2">Department 2</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="languageInput">Department</label>
+        <select name="language" class="form-control" id="languageInput">
+            <option value=""><?php echo $this->translate('(Select language)');?></option>
+            <option value="1">Language 1</option>
+            <option value="2">Language 2</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default"><?php echo $this->translate('Search');?></button>
+</form>
+
+<h2>Search results</h2>
+
+<div class="list-group job-list">
+    <div class="list-group-item">
+        <h4>Job #1 <span class="label label-info">Department 1</span></h4>
+        <div class="job-description">
+            <p>Job Description</p>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <h4>Job #2 <span class="label label-info">Department 2</span></h4>
+        <div class="job-description">
+            <p>Job Description</p>
+        </div>
+    </div>
+
+</div>
