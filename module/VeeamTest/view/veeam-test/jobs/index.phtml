@@ -1,24 +1,32 @@
 <h1>Find jobs</h1>
 
 
+<?php
+$form = $this->searchForm;
+$this->form()->openTag($form);?>
+<?php echo $this->form()->closeTag() ?>
 <form class="form-inline" role="form">
     <div class="form-group">
-        <label class="sr-only" for="departmentInput">Department</label>
-        <select name="department" class="form-control" id="departmentInput">
-            <option value=""><?php echo $this->translate('(Select department)');?></option>
-            <option value="1">Department 1</option>
-            <option value="2">Department 2</option>
-        </select>
+        <?php
+        $department = $form->get('department');
+        $department->setAttributes(array("class"=>"form-control", "id"=>"departmentInput"));
+        ?>
+        <label class="sr-only" for="departmentInput"><?php echo $department->getOption('label');?></label>
+        <?php echo $this->formSelect($department);?>
     </div>
     <div class="form-group">
-        <label class="sr-only" for="languageInput">Department</label>
-        <select name="language" class="form-control" id="languageInput">
-            <option value=""><?php echo $this->translate('(Select language)');?></option>
-            <option value="1">Language 1</option>
-            <option value="2">Language 2</option>
-        </select>
+        <?php
+        $language = $form->get('language');
+        $language->setAttributes(array("class"=>"form-control", "id"=>"languageInput"));
+        ?>
+        <label class="sr-only" for="languageInput"><?php echo $department->getOption('label');?></label>
+        <?php echo $this->formSelect($language);?>
     </div>
-    <button type="submit" class="btn btn-default"><?php echo $this->translate('Search');?></button>
+    <?php echo $this->formElement($form->get('security')) ?>
+    <?php
+    $send=$form->get('send');
+    $send->setAttributes(array("class"=>"btn btn-default"));
+    echo $this->formElement($send) ?>
 </form>
 
 <h2>Search results</h2>

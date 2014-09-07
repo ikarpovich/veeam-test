@@ -25,4 +25,38 @@ class Language
     private $name;
 
     // getters/setters
+
+    /**
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param integer $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+
 }
