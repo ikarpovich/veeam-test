@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use VeeamTest\Form;
 
-
+/** Job list controller */
 class JobsController extends AbstractActionController
 {
     private $em;

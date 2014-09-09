@@ -13,6 +13,7 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\Factory;
 
+/** Job search form */
 class SearchForm extends Form
 {
     public function __construct($departments, $languages)

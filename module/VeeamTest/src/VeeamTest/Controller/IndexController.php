@@ -12,6 +12,7 @@ namespace VeeamTest\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+/** Index page controller */
 class IndexController extends AbstractActionController
 {
     public function indexAction()
