@@ -20,10 +20,61 @@ class JobsController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel(array("searchForm"=>new Form\SearchForm(
-                $this->getEntityManager()->getRepository('VeeamTest\Entity\Department')->findAll(),
-                $this->getEntityManager()->getRepository('VeeamTest\Entity\Language')->findAll()
-            )));
+        $searchForm=new Form\SearchForm(
+            $this->getEntityManager()->getRepository('VeeamTest\Entity\Department')->findAll(),
+            $this->getEntityManager()->getRepository('VeeamTest\Entity\Language')->findAll()
+        );
+
+        $request=$this->getRequest();
+        $messages=false;
+
+        $departmentId=false;
+        $languageId=false;
+
+        if ($request->isPost())
+        {
+            $searchForm->setData($request->getPost());
+
+            if ($searchForm->isValid()) {
+                $validatedData = $searchForm->getData();
+
+                $departmentId=$validatedData["department"];
+                $languageId=$validatedData["language"];
+
+            } else {
+                $messages = $searchForm->getMessages();
+            }
+        }
+
+
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $select=array('j');
+        if($languageId)
+            $select[]='lj';
+
+        $qb->select($select)
+            ->from('VeeamTest\Entity\Job', 'j');
+
+        if($languageId)
+        {
+            $qb->leftJoin('j.languages', 'lj', 'WITH',
+                $qb->expr()->eq("lj.language", '?1')
+            );
+            $qb->setParameter(1, $languageId);
+
+        }
+
+        if($departmentId)
+            $qb->where($qb->expr()->eq(
+                'j.department',
+                $departmentId));
+
+        $query = $qb->getQuery();
+        $jobs = $query->getResult();
+
+        return new ViewModel(array('searchForm' => $searchForm, 'formErrors' => $messages, 'jobs' => $jobs, 'languageId'=>$languageId));
     }
 
     public function setEntityManager(EntityManager $em)

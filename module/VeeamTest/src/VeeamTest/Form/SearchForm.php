@@ -11,17 +11,24 @@ namespace VeeamTest\Form;
 
 use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\InputFilter\Factory;
 
 class SearchForm extends Form
 {
-    protected $captcha;
-
     public function __construct($departments, $languages)
     {
+        $factory = new Factory();
+
         $departmentsArray=array();
         foreach($departments as $department)
         {
             $departmentsArray[$department->getId()]=$department->getName();
+        }
+
+        $languagesArray=array();
+        foreach($languages as $language)
+        {
+            $languagesArray[$language->getId()]=$language->getName();
         }
 
         parent::__construct();
@@ -33,6 +40,7 @@ class SearchForm extends Form
                 'empty_option' => '(Select department)',
                 'value_options'=>$departmentsArray
             ),
+            'required' => false,
             'type'  => 'Select',
         ));
 
@@ -41,10 +49,12 @@ class SearchForm extends Form
             'options' => array(
                 'label' => 'Language',
                 'empty_option' => '(Select language)',
-                'value_options'=>array(
-                    '1' => 'Language 1'
-                )
+                'value_options'=>$languagesArray,
+                'allow_empty' => true,
+                'required' => false,
             ),
+            'required' => false,
+            'allow_empty' => true,
             'type'  => 'Select',
         ));
 
@@ -57,8 +67,15 @@ class SearchForm extends Form
             ),
         ));
 
-        // We could also define the input filter here, or
-        // lazy-create it in the getInputFilter() method.
+        $this->getInputFilter()->add($factory->createInput(array(
+            'name' => 'language',
+            'required' => false,
+        )));
+
+        $this->getInputFilter()->add($factory->createInput(array(
+            'name' => 'department',
+            'required' => false,
+        )));
     }
 }
 

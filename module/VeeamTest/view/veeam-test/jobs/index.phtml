@@ -3,13 +3,19 @@
 
 <?php
 $form = $this->searchForm;
-$this->form()->openTag($form);?>
-<?php echo $this->form()->closeTag() ?>
-<form class="form-inline" role="form">
+$form->prepare();
+$form->setAttributes(array(
+    'method' => 'post',
+    'role' => 'form',
+    'class' => 'form-inline'
+));
+
+echo $this->form()->openTag($form);?>
+
     <div class="form-group">
         <?php
         $department = $form->get('department');
-        $department->setAttributes(array("class"=>"form-control", "id"=>"departmentInput"));
+        $department->setAttributes(array('class' => 'form-control', 'id' => 'departmentInput'));
         ?>
         <label class="sr-only" for="departmentInput"><?php echo $department->getOption('label');?></label>
         <?php echo $this->formSelect($department);?>
@@ -17,7 +23,7 @@ $this->form()->openTag($form);?>
     <div class="form-group">
         <?php
         $language = $form->get('language');
-        $language->setAttributes(array("class"=>"form-control", "id"=>"languageInput"));
+        $language->setAttributes(array('class' => 'form-control', 'id' => 'languageInput'));
         ?>
         <label class="sr-only" for="languageInput"><?php echo $department->getOption('label');?></label>
         <?php echo $this->formSelect($language);?>
@@ -25,25 +31,44 @@ $this->form()->openTag($form);?>
     <?php echo $this->formElement($form->get('security')) ?>
     <?php
     $send=$form->get('send');
-    $send->setAttributes(array("class"=>"btn btn-default"));
+    $send->setAttribute('class', 'btn btn-default');
     echo $this->formElement($send) ?>
-</form>
+<?php echo $this->form()->closeTag() ?>
+
+<?php if($this->formErrors):
+    ?>
+    <br />
+    <div class="alert alert-danger" role="alert">
+    <?php
+    foreach($this->formErrors as $field=>$errors):
+        $field=$form->get($field);
+        if($field->getOption('label')):?><b><?php echo $field->getOption('label');?>:</b> <?php endif; echo join(", ", $errors);?><br /><?php
+    endforeach;?>
+    </div>
+    <?php
+endif?>
 
 <h2>Search results</h2>
 
-<div class="list-group job-list">
-    <div class="list-group-item">
-        <h4>Job #1 <span class="label label-info">Department 1</span></h4>
-        <div class="job-description">
-            <p>Job Description</p>
-        </div>
-    </div>
+<?//print_r($this->jobs);?>
 
+<div class="list-group job-list">
+    <?foreach($this->jobs as $job):?>
     <div class="list-group-item">
-        <h4>Job #2 <span class="label label-info">Department 2</span></h4>
+        <h4><?php echo $job->getName()?> <span class="label label-info"><?php echo $job->getDepartment()->getName()?></span></h4>
+        <?
+        $languages=$job->getLanguages()->getSnapshot();
+        ?>
         <div class="job-description">
-            <p>Job Description</p>
+            <?if(count($languages)>0):
+                foreach($languages as $language):?>
+                    <p><?php echo $language->getText()?></p>
+                <?endforeach;
+            else:?>
+                <p><?php echo $job->getText()?></p>
+            <?endif?>
         </div>
     </div>
+    <?endforeach?>
 
 </div>
