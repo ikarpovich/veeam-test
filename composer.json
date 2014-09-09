@@ -1,0 +1,17 @@
+{
+    "name": "veeam-test",
+    "description": "Veeam Software test veeam-test",
+    "license": "GPL-2.0+",
+    "keywords": [
+        "framework",
+        "zf2",
+        "doctrine2"
+    ],
+    "homepage": "http://github.com/ikarpovich/veeam-test",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.2.*",
+        "doctrine/doctrine-orm-module" : "0.7.*",
+        "phpunit/phpunit": "4.2.*"
+    }
+}
